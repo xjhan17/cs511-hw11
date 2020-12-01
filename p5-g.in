@@ -1,0 +1,34 @@
+set(binary_resolution).
+clear(print_initial_clauses).
+clear(print_kept).
+clear(print_given).
+assign(max_seconds,10).
+assign(stats,none).
+
+
+% binary relation: P(x,y) := x direct sum y
+% binary relation: Q(x,y) := x direct product y
+% binary relation: R(x,y) := x \unlhd y
+% binary relation: E(x,y) : x \approx y (x=y)
+% binary relation: H(x,y) : Heyting algebra
+
+formulas(assumptions).
+all x R(x,x)
+all x all y (R(x,y) & R(y,x) -> E(x,y))
+all x all y all z (R(x,y) & R(y,z) -> R(x,z))
+all x ($F -> x)
+all x (x -> $T)
+all x all y all z (R(P(x,y),z) <-> (R(x,z) & R(y,z)))
+all x all y all z (R(z,P(x,y)) <-> (R(z,x) & R(z,y)))
+
+all x all y all z E(Q(x, P(y,z)), P(Q(x,y), Q(x,z)))
+all x all y all z E(P(x, P(y,z)), Q(P(x,y), P(x,z)))
+
+all x all y all z (R(Q(x,y), z) <-> R(x, H(y,z)))
+
+all x H(x,x) <-> $T
+end_of_lists.
+
+formulas(goals).
+all x all y E(Q(x, H(x,y)), Q(x,y))
+end_of_list.
