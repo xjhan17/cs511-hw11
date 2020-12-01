@@ -15,8 +15,20 @@ assign(stats,none).
 
 
 formulas(assumptions).
-all x exist y exists z (E(x, -y) & E(x, -z))
+formulas(assumptions).
+all x R(x,x)
+all x all y (R(x,y) & R(y,x) -> E(x,y))
+all x all y all z (R(x,y) & R(y,z) -> R(x,z))
+all x ($F -> x)
+all x (x -> $T)
+all x all y all z (R(P(x,y),z) <-> (R(x,z) & R(y,z)))
+all x all y all z (R(z,P(x,y)) <-> (R(z,x) & R(z,y)))
 
+all x all y all z E(Q(x, P(y,z)), P(Q(x,y), Q(x,z)))
+all x all y all z E(P(x, P(y,z)), Q(P(x,y), P(x,z)))
+
+
+all x exist y exists z (E(x, -y) & E(x, -z))
 end_of_lists.
 
 formulas(goals).

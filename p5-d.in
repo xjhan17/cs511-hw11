@@ -10,21 +10,26 @@ assign(stats,none).
 % binary relation: Q(x,y) := x direct product y
 % binary relation: R(x,y) := x \unlhd y
 % binary relation: H(x,y) : Heyting algebra
+% binary relation: E(x,y) : x \approx y (x=y)
 
 formulas(assumptions).
-all x all y (H(x, y) -> P(-x, y))
+all x all y ((P(x,y) <-> $T) -> P(-x, y))
+all x all y ((Q(x,y) <-> $F) -> P(-x, y))
 end_of_list.
 
 
 formulas(goals).
-all x all y (P(-x, y) -> H(x, y))
+all x all y (P(-x, y) -> (P(x,y) <-> $T))
+all x all y (P(-x, y) -> (Q(x,y) <-> $F))
 end_of_list.
 
 formulas(assumptions).
-all x all y (P(-x, y) -> H(x, y))
+all x all y (P(-x, y) -> (P(x,y) <-> $T))
+all x all y (P(-x, y) -> (Q(x,y) <-> $F))
 end_of_list.
 
 
 formulas(goals).
-all x all y (H(x, y) -> P(-x, y))
+all x all y ((P(x,y) <-> $T) -> P(-x, y))
+all x all y ((Q(x,y) <-> $F) -> P(-x, y))
 end_of_list.
